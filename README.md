@@ -4,6 +4,14 @@
 
 ## Getting started
 
-Для старта проекта выполнить
-pip install -U pip && pip install -r requirements.txt
-python start.py
+## Для старта проекта
+
+### выполнить
+
+>> pip install -U pip && pip install -r requirements.txt
+
+### при необходимости поправить настройки в settings.py
+
+### затем выполнить
+
+>>> python start.py
