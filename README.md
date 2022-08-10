@@ -8,10 +8,10 @@
 
 ### выполнить
 
->> pip install -U pip && pip install -r requirements.txt
+> pip install -U pip && pip install -r requirements.txt
 
 ### при необходимости поправить настройки в settings.py
 
 ### затем выполнить
 
->>> python start.py
+> python start.py
