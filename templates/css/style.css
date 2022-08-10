@@ -1,0 +1,17 @@
+div{
+    box-sizing: border-box;
+    border-collapse: collapse;
+    border: 1px solid slateblue;
+}
+.header {
+    height: 0.2vh;
+}
+.hnav {
+    height: 0.1vh;
+}
+.content {
+    height: 0.6vh;
+}
+.footer {
+    height: 0.1vh;
+}

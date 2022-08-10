@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        div{
+            box-sizing: border-box;
+            border-collapse: collapse;
+            border: 1px solid slateblue;
+        }
+        .header {
+            height: 15vh;
+        }
+        .hnav {
+            height: 3vh;
+        }
+        .content {
+            height: 70vh;
+        }
+        .footer {
+            height: 10vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+    {% block header %}Шапка{% endblock %}
+    </div>
+    <div class="hnav">
+    {% block hnav %}
+    <a href="/" _target="self"><button>Домашняя</button></a>
+    <a href="/about" _target="self"><button>О проекте</button></a>
+    {% endblock %}
+    </div>
+    <div class="content">
+    {% block content %}Контент{% endblock %}
+    </div>
+    <div class="footer">
+    {% block footer %}Футер{% endblock %}
+    </div>
+</body>
+</html>
