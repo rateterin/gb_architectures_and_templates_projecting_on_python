@@ -60,9 +60,11 @@ class Application:
         method = environ.get("REQUEST_METHOD")
         if method == "POST":
             params = get_params_from_post(environ)
+            params = self.decode_value(params)
             do_with_post(params)
         if method == "GET":
             params = get_params_from_get(environ)
+            params = self.decode_value(params)
 
         path = environ.get("PATH_INFO")
         if path in self.pages:
