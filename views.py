@@ -9,3 +9,8 @@ class HomeView():
 class AboutView():
     def __call__(self, request):
         return "200 OK", render("about.html")
+
+
+class ContactsView():
+    def __call__(self, request):
+        return "200 OK", render("contacts.html")
