@@ -72,6 +72,7 @@ class Application:
         else:
             view = NotFound404()
         request = {}
+        request["method"] = method
         request["params"] = params
         for front in self.fronts:
             front(request)
