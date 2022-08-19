@@ -2,6 +2,7 @@ import settings
 
 from quopri import decodestring
 from jinja2 import Environment, FileSystemLoader
+from pprint import pprint
 
 
 def render(template_name, folder=None, **kwargs):
@@ -10,6 +11,39 @@ def render(template_name, folder=None, **kwargs):
     env = Environment(loader=FileSystemLoader(folder))
     template = env.get_template(template_name)
     return template.render(**kwargs)
+
+
+def parse_params_from_data(data: str) -> dict:
+    result_dict = {}
+    if not data:
+        return {}
+    data = data.split("&")
+    result_dict = {k: v for (k, v) in [el.split("=") for el in data]}
+    return result_dict
+
+
+def get_params_from_get(env):
+    query_string = env.get("QUERY_STRING")
+    result = parse_params_from_data(query_string)
+    return result
+
+
+def get_params_from_post(env):
+    data_length = env.get("CONTENT_LENGTH")
+    data_length = int(data_length) if data_length else 0
+    data = env.get("wsgi.input").read(data_length) if data_length > 0 else b""
+    result = parse_params_from_data(data.decode(encoding="utf-8"))
+    return result
+
+
+def do_with_post(params):
+    if "internal" in params.keys():
+        if params["internal"] == "cont_page_msg":
+            sender = params["email"]
+            message = params["message"]
+            print("---Сообщение---")
+            print(f"Отправитель: {sender}")
+            pprint(message)
 
 
 class NotFound404:
@@ -23,13 +57,20 @@ class Application:
         self.fronts = fronts
 
     def __call__(self, environ, start_response):
-        path = environ["PATH_INFO"]
-        # pprint(environ)
+        method = environ.get("REQUEST_METHOD")
+        if method == "POST":
+            params = get_params_from_post(environ)
+            do_with_post(params)
+        if method == "GET":
+            params = get_params_from_get(environ)
+
+        path = environ.get("PATH_INFO")
         if path in self.pages:
             view = self.pages[path]
         else:
             view = NotFound404()
         request = {}
+        request["params"] = params
         for front in self.fronts:
             front(request)
         status_code, body = view(request)
