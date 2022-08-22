@@ -1,0 +1,2 @@
+TEMPLATES_FOLDER = "templates"
+PORT = 8888
