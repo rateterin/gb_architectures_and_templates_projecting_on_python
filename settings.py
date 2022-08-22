@@ -1,2 +1,2 @@
 TEMPLATES_FOLDER = "templates"
-PORT = 8000
+PORT = 8888
